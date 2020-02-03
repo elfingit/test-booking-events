@@ -9383,3 +9383,9 @@ body,
   height: 100%;
 }
 
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 90%;
+  }
+}
+

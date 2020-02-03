@@ -30,7 +30,7 @@ Vue.component('App', App)
 
 const routes = [
     { path: '/', component: Map },
-    { path: '/event/:id', component: EventComponent }
+    { path: '/event/:id', component: EventComponent, props: true }
 ]
 
 const router = new VueRouter({
