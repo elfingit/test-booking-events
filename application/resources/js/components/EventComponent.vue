@@ -1,45 +1,74 @@
 <template>
-    <Loader v-if="!eventData" />
-    <div class="row" v-else>
-        <div class="col s8">
+    <div>
+        <p><router-link to="/">Home</router-link></p>
+        <Loader v-if="!eventData" />
+        <div class="row" v-else>
+            <div class="col s8">
+                <Place
+                    @placeClick="onPlaceClick"
+                    v-for="place in places"
+                    :place="place"
+                    :key="place.id" />
+            </div>
+            <div class="col s4">
+                <h3>{{ eventData.title }}</h3>
+                <p>{{ eventData.description }}</p>
+                <p>
+                    <span class="time"><b>Start at:</b> {{ eventData.started_at }}</span>
+                    <span class="time"><b>End at:</b> {{ eventData.end_at }}</span>
+                </p>
+            </div>
         </div>
-        <div class="col s4">
-            <h3>{{ eventData.title }}</h3>
-            <p>{{ eventData.description }}</p>
-            <p>
-                <span class="time"><b>Start at:</b> {{ eventData.started_at }}</span>
-                <span class="time"><b>End at:</b> {{ eventData.end_at }}</span>
-            </p>
-        </div>
+        <BookFormComponent ref="bookForm" />
     </div>
 </template>
 
 <script>
     import Loader from "./Loader";
+    import Place from "./Place";
+    import BookFormComponent from "./BookFormComponent";
     export default {
         name: "EventComponent",
-        components: {Loader},
+        components: {BookFormComponent, Place, Loader},
         props: ['id'],
 
         data() {
             return {
-                eventData: null
+                eventData: null,
+                places: []
             }
         },
 
         mounted() {
             axios.get(`/api/events/${this.id}`)
                 .then( response => {
-                    this.eventData = response.data.data;
+                    this.eventData = response.data.data
                 })
                 .catch(e => {
-                    console.log(e);
+                    console.log(e)
                     alert('Something went wrong please try again later')
                 })
+
+            axios.get(`/api/events/${this.id}/place`)
+                .then( response => {
+                    this.places = response.data.data
+                })
+                .catch(e => {
+                    console.log(e)
+                    alert('Something went wrong please try again later')
+                })
+        },
+
+        methods: {
+            onPlaceClick: function(place) {
+                this.$refs.bookForm.show(place)
+            }
         }
     }
 </script>
 
 <style scoped>
-
+ .s8 {
+    position: relative;
+ }
 </style>

@@ -15,3 +15,5 @@ use Illuminate\Http\Request;
 
 Route::get('/events', 'Api\EventsController@index');
 Route::get('/events/{event}', 'Api\EventsController@show');
+
+Route::get('/events/{event}/place', 'Api\PlacesController@index');

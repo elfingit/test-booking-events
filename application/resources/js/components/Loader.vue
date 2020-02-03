@@ -33,12 +33,14 @@
         position: relative;
         width: 100%;
         height: 100%;
+        min-height: 800px;
     }
 
     #floatingBarsG {
         margin: 0;
         position: absolute;
         top: 50%;
+        left: 50%;
         transform: translate(0, -50%);
         width:62px;
         height:77px;

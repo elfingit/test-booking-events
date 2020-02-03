@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Contracts\EventLocationServiceContract;
+use App\Contracts\PlaceServiceContract;
 use App\Services\EventLocationService;
+use App\Services\PlaceService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(EventLocationServiceContract::class, EventLocationService::class);
+        $this->app->bind(PlaceServiceContract::class, PlaceService::class);
     }
 }

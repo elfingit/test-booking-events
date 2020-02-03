@@ -228,6 +228,7 @@ return [
 
         //App facades
         'EventLocationService'  => \App\Facades\EventLocationServiceFacade::class,
+        'PlaceService'  => \App\Facades\PlaceServiceFacade::class,
 
     ],
 
