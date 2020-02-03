@@ -1972,6 +1972,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BookFormComponent",
   data: function data() {
@@ -1984,7 +2012,8 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         description: ''
       },
-      logoFile: null
+      logoFile: null,
+      lockForm: false
     };
   },
   mounted: function mounted() {
@@ -1994,10 +2023,29 @@ __webpack_require__.r(__webpack_exports__);
     show: function show(place) {
       this.place = place;
       window.M.updateTextFields();
-      window.M.Modal.getInstance(this.$el).open();
+      var mInst = window.M.Modal.getInstance(this.$el);
+      mInst.options.dismissible = false;
+      mInst.open();
     },
-    cancelForm: function cancelForm(event) {
-      event.preventDefault();
+    handleFileUpload: function handleFileUpload() {
+      this.logoFile = this.$refs.logoFile.files[0];
+    },
+    bookPlace: function bookPlace() {
+      this.lockForm = true;
+      var formData = new FormData();
+
+      window._.forEach(this.formData, function (value, index) {
+        formData.append(index, value);
+      });
+
+      formData.append('logo_file', this.logoFile);
+      axios.post('/book_place', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    },
+    cancelForm: function cancelForm() {
       this.formData = {
         company_name: '',
         contact_name: '',
@@ -46620,6 +46668,7 @@ var render = function() {
             staticClass: "validate",
             attrs: {
               placeholder: "Enter company name",
+              disabled: this.lockForm,
               id: "company_name",
               type: "text"
             },
@@ -46652,6 +46701,7 @@ var render = function() {
             staticClass: "validate",
             attrs: {
               placeholder: "Enter person name",
+              disabled: this.lockForm,
               id: "contact_name",
               type: "text"
             },
@@ -46682,7 +46732,12 @@ var render = function() {
               }
             ],
             staticClass: "validate",
-            attrs: { placeholder: "Enter email", id: "email", type: "email" },
+            attrs: {
+              placeholder: "Enter email",
+              disabled: this.lockForm,
+              id: "email",
+              type: "email"
+            },
             domProps: { value: _vm.formData.email },
             on: {
               input: function($event) {
@@ -46708,7 +46763,12 @@ var render = function() {
               }
             ],
             staticClass: "validate",
-            attrs: { placeholder: "Enter phone", id: "phone", type: "tel" },
+            attrs: {
+              placeholder: "Enter phone",
+              disabled: this.lockForm,
+              id: "phone",
+              type: "tel"
+            },
             domProps: { value: _vm.formData.phone },
             on: {
               input: function($event) {
@@ -46734,7 +46794,11 @@ var render = function() {
               }
             ],
             staticClass: "materialize-textarea",
-            attrs: { placeholder: "Enter description", id: "description" },
+            attrs: {
+              placeholder: "Enter description",
+              disabled: this.lockForm,
+              id: "description"
+            },
             domProps: { value: _vm.formData.description },
             on: {
               input: function($event) {
@@ -46751,19 +46815,45 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "file-field input-field col s6" }, [
+          _c("div", { class: "btn" + (this.lockForm ? " disabled" : "") }, [
+            _c("span", [_vm._v("Company Logo")]),
+            _vm._v(" "),
+            _c("input", {
+              ref: "logoFile",
+              attrs: { type: "file", id: "file" },
+              on: { change: _vm.handleFileUpload }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "file-path-wrapper" }, [
+            _c("input", {
+              staticClass: "file-path validate",
+              attrs: { disabled: this.lockForm, type: "text" }
+            })
+          ])
+        ])
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "modal-footer" }, [
-      _c("button", { staticClass: "waves-effect waves-green btn-flat" }, [
-        _vm._v("Book")
-      ]),
+      _c(
+        "button",
+        {
+          class:
+            "waves-effect waves-green btn-flat" +
+            (this.lockForm ? " disabled" : ""),
+          on: { click: _vm.bookPlace }
+        },
+        [_vm._v("Book")]
+      ),
       _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "modal-close waves-effect waves-green btn-flat",
+          class:
+            "modal-close waves-effect waves-green btn-flat" +
+            (this.lockForm ? " disabled" : ""),
           on: { click: _vm.cancelForm }
         },
         [_vm._v("Cancel")]
@@ -46771,27 +46861,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "file-field input-field col s6" }, [
-      _c("div", { staticClass: "btn" }, [
-        _c("span", [_vm._v("Company Logo")]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "file" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "file-path-wrapper" }, [
-        _c("input", {
-          staticClass: "file-path validate",
-          attrs: { type: "text" }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
