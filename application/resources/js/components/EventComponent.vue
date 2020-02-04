@@ -19,7 +19,7 @@
                 </p>
             </div>
         </div>
-        <BookFormComponent ref="bookForm" />
+        <BookFormComponent ref="bookForm" @newReservation="onNewReservation"/>
     </div>
 </template>
 
@@ -62,6 +62,16 @@
         methods: {
             onPlaceClick: function(place) {
                 this.$refs.bookForm.show(place)
+            },
+
+            onNewReservation: function(reserv) {
+                let index = window._.findIndex(this.places, { id: parseInt(reserv.place_id) })
+
+                if (index > -1) {
+                    const place = this.places[index]
+                    place.reservation = reserv
+                    this.places.splice(index, 1, place)
+                }
             }
         }
     }

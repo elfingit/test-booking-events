@@ -2082,7 +2082,13 @@ __webpack_require__.r(__webpack_exports__);
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(function (response) {})["catch"](function (e) {
+      }).then(function (response) {
+        _this.cancelForm();
+
+        _this.$emit('newReservation', response.data.data);
+
+        window.M.Modal.getInstance(_this.$el).close();
+      })["catch"](function (e) {
         if (e.request && e.request.status === 422) {
           _this.formErrors = e.response.data.errors;
         } else {
@@ -2101,6 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         description: ''
       };
+      this.$refs.logoFile.reset();
       this.formErrors = {};
     },
     getInputClass: function getInputClass(name) {
@@ -2187,6 +2194,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onPlaceClick: function onPlaceClick(place) {
       this.$refs.bookForm.show(place);
+    },
+    onNewReservation: function onNewReservation(reserv) {
+      var index = window._.findIndex(this.places, {
+        id: parseInt(reserv.place_id)
+      });
+
+      if (index > -1) {
+        var place = this.places[index];
+        place.reservation = reserv;
+        this.places.splice(index, 1, place);
+      }
     }
   }
 });
@@ -2371,12 +2389,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Place",
   props: ['place'],
   methods: {
     onPlaceClick: function onPlaceClick() {
-      this.$emit('placeClick', this.place);
+      if (!this.place.reservation) this.$emit('placeClick', this.place);
     }
   }
 });
@@ -2490,7 +2511,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.place-container[data-v-3d29762c] {\n    position: absolute;\n    border: 1px solid grey;\n    border-radius: 3px;\n}\n.place-body[data-v-3d29762c] {\n    cursor: pointer;\n}\n.place-body[data-v-3d29762c]:hover {\n    background-color: #0E9A00;\n}\n.price[data-v-3d29762c] {\n    padding: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.place-container[data-v-3d29762c] {\n    position: absolute;\n    border: 1px solid grey;\n    border-radius: 3px;\n}\n.place-body[data-v-3d29762c] {\n    cursor: pointer;\n    min-height: 67px;\n}\n.place-body[data-v-3d29762c]:hover {\n    background-color: #0E9A00;\n}\n.price[data-v-3d29762c] {\n    padding: 1rem;\n}\n.reserved-body[data-v-3d29762c] {\n    width: 67px;\n    min-height: 67px;\n}\n", ""]);
 
 // exports
 
@@ -47069,7 +47090,10 @@ var render = function() {
             ])
           ]),
       _vm._v(" "),
-      _c("BookFormComponent", { ref: "bookForm" })
+      _c("BookFormComponent", {
+        ref: "bookForm",
+        on: { newReservation: _vm.onNewReservation }
+      })
     ],
     1
   )
@@ -47270,9 +47294,17 @@ var render = function() {
       on: { click: _vm.onPlaceClick }
     },
     [
-      _c("div", { staticClass: "place-body" }, [
-        _c("span", { staticClass: "price" }, [_vm._v(_vm._s(_vm.place.price))])
-      ])
+      !_vm.place.reservation
+        ? _c("div", { staticClass: "place-body" }, [
+            _c("span", { staticClass: "price" }, [
+              _vm._v(_vm._s(_vm.place.price))
+            ])
+          ])
+        : _c("div", { staticClass: "reserved-body" }, [
+            _c("img", {
+              attrs: { src: _vm.place.reservation.logo, width: "100%" }
+            })
+          ])
     ]
   )
 }

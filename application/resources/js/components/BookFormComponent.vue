@@ -164,7 +164,11 @@
                     }
                 })
                 .then( response  => {
-
+                    this.cancelForm()
+                    this.$emit('newReservation', response.data.data)
+                    window.M.Modal
+                        .getInstance(this.$el)
+                        .close()
                 })
                 .catch( e => {
 
@@ -190,6 +194,8 @@
                     phone: '',
                     description: ''
                 }
+
+                this.$refs.logoFile.reset()
 
                 this.formErrors = {}
             },
