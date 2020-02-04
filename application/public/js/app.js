@@ -2000,6 +2000,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BookFormComponent",
   data: function data() {
@@ -2012,6 +2044,7 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         description: ''
       },
+      formErrors: {},
       logoFile: null,
       lockForm: false
     };
@@ -2031,18 +2064,33 @@ __webpack_require__.r(__webpack_exports__);
       this.logoFile = this.$refs.logoFile.files[0];
     },
     bookPlace: function bookPlace() {
+      var _this = this;
+
       this.lockForm = true;
+      this.formErrors = {};
       var formData = new FormData();
 
       window._.forEach(this.formData, function (value, index) {
-        formData.append(index, value);
+        if (value.trim().length > 0) {
+          formData.append(index, value);
+        }
       });
 
       formData.append('logo_file', this.logoFile);
-      axios.post('/book_place', formData, {
+      formData.append('place_id', this.place.id);
+      axios.post('/api/reserve_place', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
+      }).then(function (response) {})["catch"](function (e) {
+        if (e.request && e.request.status === 422) {
+          _this.formErrors = e.response.data.errors;
+        } else {
+          console.log(e);
+          alert('Something went wrong please try again later');
+        }
+      })["finally"](function () {
+        _this.lockForm = false;
       });
     },
     cancelForm: function cancelForm() {
@@ -2053,6 +2101,13 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         description: ''
       };
+      this.formErrors = {};
+    },
+    getInputClass: function getInputClass(name) {
+      return this.formErrors[name] ? ' invalid' : 'valid';
+    },
+    getFormError: function getFormError(name) {
+      return this.formErrors[name] ? this.formErrors[name][0] : '';
     }
   }
 });
@@ -2360,6 +2415,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "\n.vue-street-view-pano-container {\n  position: relative;\n}\n.vue-street-view-pano-container .vue-street-view-pano {\n  left: 0; right: 0; top: 0; bottom: 0;\n  position: absolute;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nspan.helper-text[data-v-1c443955] {\n    position: absolute;\n    top: 4rem;\n    width: 200px;\n}\n.input-field[data-v-1c443955] {\n    min-height: 4rem;\n    margin-top: 1rem;\n}\n\n", ""]);
 
 // exports
 
@@ -45687,6 +45761,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EventComponent.vue?vue&type=style&index=0&id=6b24092e&scoped=true&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EventComponent.vue?vue&type=style&index=0&id=6b24092e&scoped=true&lang=css& ***!
@@ -46655,182 +46759,224 @@ var render = function() {
       _c("h4", [_vm._v("Book for - " + _vm._s(_vm.place.price))]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "input-field col s6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.company_name,
-                expression: "formData.company_name"
-              }
-            ],
-            staticClass: "validate",
-            attrs: {
-              placeholder: "Enter company name",
-              disabled: this.lockForm,
-              id: "company_name",
-              type: "text"
-            },
-            domProps: { value: _vm.formData.company_name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.company_name,
+                  expression: "formData.company_name"
                 }
-                _vm.$set(_vm.formData, "company_name", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "company_name" } }, [
-            _vm._v("Company name")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-field col s6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.contact_name,
-                expression: "formData.contact_name"
-              }
-            ],
-            staticClass: "validate",
-            attrs: {
-              placeholder: "Enter person name",
-              disabled: this.lockForm,
-              id: "contact_name",
-              type: "text"
-            },
-            domProps: { value: _vm.formData.contact_name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              ],
+              class: _vm.getInputClass("company_name"),
+              attrs: {
+                placeholder: "Enter company name",
+                disabled: this.lockForm,
+                id: "company_name",
+                type: "text"
+              },
+              domProps: { value: _vm.formData.company_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "company_name", $event.target.value)
                 }
-                _vm.$set(_vm.formData, "contact_name", $event.target.value)
               }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "contact_name" } }, [
-            _vm._v("Contact name")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-field col s6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.email,
-                expression: "formData.email"
-              }
-            ],
-            staticClass: "validate",
-            attrs: {
-              placeholder: "Enter email",
-              disabled: this.lockForm,
-              id: "email",
-              type: "email"
-            },
-            domProps: { value: _vm.formData.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.formData, "email", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-field col s6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.phone,
-                expression: "formData.phone"
-              }
-            ],
-            staticClass: "validate",
-            attrs: {
-              placeholder: "Enter phone",
-              disabled: this.lockForm,
-              id: "phone",
-              type: "tel"
-            },
-            domProps: { value: _vm.formData.phone },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.formData, "phone", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-field col s6" }, [
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.formData.description,
-                expression: "formData.description"
-              }
-            ],
-            staticClass: "materialize-textarea",
-            attrs: {
-              placeholder: "Enter description",
-              disabled: this.lockForm,
-              id: "description"
-            },
-            domProps: { value: _vm.formData.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.formData, "description", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "description" } }, [
-            _vm._v("Description")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "file-field input-field col s6" }, [
-          _c("div", { class: "btn" + (this.lockForm ? " disabled" : "") }, [
-            _c("span", [_vm._v("Company Logo")]),
+            }),
             _vm._v(" "),
-            _c("input", {
-              ref: "logoFile",
-              attrs: { type: "file", id: "file" },
-              on: { change: _vm.handleFileUpload }
+            _c("label", { attrs: { for: "company_name" } }, [
+              _vm._v("Company name")
+            ]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "helper-text",
+              attrs: { "data-error": _vm.getFormError("company_name") }
             })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "file-path-wrapper" }, [
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "input-field" }, [
             _c("input", {
-              staticClass: "file-path validate",
-              attrs: { disabled: this.lockForm, type: "text" }
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.contact_name,
+                  expression: "formData.contact_name"
+                }
+              ],
+              class: _vm.getInputClass("contact_name"),
+              attrs: {
+                placeholder: "Enter person name",
+                disabled: this.lockForm,
+                id: "contact_name",
+                type: "text"
+              },
+              domProps: { value: _vm.formData.contact_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "contact_name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "contact_name" } }, [
+              _vm._v("Contact name")
+            ]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "helper-text",
+              attrs: { "data-error": _vm.getFormError("contact_name") }
             })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.email,
+                  expression: "formData.email"
+                }
+              ],
+              class: _vm.getInputClass("email"),
+              attrs: {
+                placeholder: "Enter email",
+                disabled: this.lockForm,
+                id: "email",
+                type: "email"
+              },
+              domProps: { value: _vm.formData.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "email", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "helper-text",
+              attrs: { "data-error": _vm.getFormError("email") }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "input-field" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.phone,
+                  expression: "formData.phone"
+                }
+              ],
+              class: _vm.getInputClass("phone"),
+              attrs: {
+                placeholder: "Enter phone",
+                disabled: this.lockForm,
+                id: "phone",
+                type: "tel"
+              },
+              domProps: { value: _vm.formData.phone },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "phone", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "helper-text",
+              attrs: { "data-error": _vm.getFormError("phone") }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "input-field" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.description,
+                  expression: "formData.description"
+                }
+              ],
+              class: "materialize-textarea " + _vm.getInputClass("description"),
+              attrs: {
+                placeholder: "Enter description",
+                disabled: this.lockForm,
+                id: "description"
+              },
+              domProps: { value: _vm.formData.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "description", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "description" } }, [
+              _vm._v("Description")
+            ]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "helper-text",
+              attrs: { "data-error": _vm.getFormError("description") }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col s6" }, [
+          _c("div", { staticClass: "file-field input-field" }, [
+            _c("div", { class: "btn" + (this.lockForm ? " disabled" : "") }, [
+              _c("span", [_vm._v("Company Logo")]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "logoFile",
+                attrs: { type: "file", id: "file" },
+                on: { change: _vm.handleFileUpload }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "file-path-wrapper" }, [
+              _c("input", {
+                class: "file-path " + _vm.getInputClass("logo_file"),
+                attrs: { disabled: this.lockForm, type: "text" }
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "helper-text",
+                attrs: { "data-error": _vm.getFormError("logo_file") }
+              })
+            ])
           ])
         ])
       ])
@@ -64925,7 +65071,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BookFormComponent_vue_vue_type_template_id_1c443955_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookFormComponent.vue?vue&type=template&id=1c443955&scoped=true& */ "./resources/js/components/BookFormComponent.vue?vue&type=template&id=1c443955&scoped=true&");
 /* harmony import */ var _BookFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookFormComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/BookFormComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& */ "./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -64933,7 +65081,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _BookFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _BookFormComponent_vue_vue_type_template_id_1c443955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _BookFormComponent_vue_vue_type_template_id_1c443955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -64962,6 +65110,22 @@ component.options.__file = "resources/js/components/BookFormComponent.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./BookFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookFormComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookFormComponent.vue?vue&type=style&index=0&id=1c443955&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_BookFormComponent_vue_vue_type_style_index_0_id_1c443955_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

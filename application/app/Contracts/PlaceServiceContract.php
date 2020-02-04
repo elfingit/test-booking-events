@@ -9,9 +9,11 @@
 namespace App\Contracts;
 
 use App\Model\EventLocation;
+use App\Model\Place;
 use Illuminate\Support\Collection;
 
 interface PlaceServiceContract
 {
     public function list(EventLocation $event): Collection;
+    public function getById($id): Place;
 }

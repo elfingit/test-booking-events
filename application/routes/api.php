@@ -17,3 +17,5 @@ Route::get('/events', 'Api\EventsController@index');
 Route::get('/events/{event}', 'Api\EventsController@show');
 
 Route::get('/events/{event}/place', 'Api\PlacesController@index');
+
+Route::post('/reserve_place', 'Api\ReservationController@store');

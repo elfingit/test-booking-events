@@ -10,4 +10,9 @@ class Place extends Model
     {
         $query->where('event_location_id', $event->id);
     }
+
+    public function eventLocation()
+    {
+        return $this->belongsTo(EventLocation::class, 'event_location_id', 'id');
+    }
 }

@@ -4,7 +4,7 @@ services:
   books_php:
     image: "laravel-dev:${IMG_VERSION}"
     volumes:
-      - ./application:/srv/www
+      - ./application:/srv/www:cached
     depends_on:
       - database
 
@@ -19,7 +19,7 @@ services:
     ports:
       - 80:8080
     volumes:
-      - ./application:/srv/www
+      - ./application:/srv/www:cached
     depends_on:
       - books_php
 

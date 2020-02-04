@@ -229,6 +229,7 @@ return [
         //App facades
         'EventLocationService'  => \App\Facades\EventLocationServiceFacade::class,
         'PlaceService'  => \App\Facades\PlaceServiceFacade::class,
+        'ReservationService' => \App\Facades\ReservationServiceFacade::class,
 
     ],
 

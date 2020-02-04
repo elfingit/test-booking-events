@@ -18,4 +18,9 @@ class PlaceService implements PlaceServiceContract
     {
         return Place::byEvent($event)->get();
     }
+
+    public function getById( $id ): Place
+    {
+        return Place::find($id);
+    }
 }
