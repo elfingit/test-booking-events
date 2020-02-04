@@ -8,6 +8,7 @@
 namespace App\Services;
 
 use App\Contracts\ReservationServiceContract;
+use App\Model\Place;
 use App\Model\PlaceReservation;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,7 +30,12 @@ class ReservationService implements ReservationServiceContract
     public function buildLogoFilePathFromRequest( FormRequest $request ): string
     {
         $place = \PlaceService::getById($request->get('place_id'));
-        return 'event_logos/' . $place->eventLocation->id . '/';
+        return '/images/event_logos/' . $place->eventLocation->id . '/';
+    }
+
+    public function buildLogoFilePathFromPlace( Place $place ): string
+    {
+        return '/images/event_logos/' . $place->eventLocation->id . '/';
     }
 
     protected function storeLogo(FormRequest $request)
@@ -37,8 +43,8 @@ class ReservationService implements ReservationServiceContract
         $fileName = \Str::random(8) . '.' . $request->file('logo_file')->extension();
         $path = $this->buildLogoFilePathFromRequest($request);
 
-        \Storage::disk($path)
-            ->put($fileName, $request->file('logo_file'));
+        \Storage::disk('public')
+            ->put($path . $fileName, $request->file('logo_file')->get());
 
         return $fileName;
     }

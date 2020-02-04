@@ -27,10 +27,10 @@ class PlaceReservationStoreRequest extends FormRequest
             'company_name' => 'required|string|max:255',
             'contact_name' => 'required|string|max:255',
             'email' => 'required|email',
-            'phone' => 'required|number',
+            'phone' => 'required|phone:BY,mobile',
             'description' => 'sometimes|string|max:65535',
             'logo_file' => 'required|file|mimes:jpeg,png|max:'.(5*1024),
-            'place_id'  => 'required|exists:places,id'
+            'place_id'  => 'required|exists:places,id|unique:place_reservations'
         ];
     }
 }

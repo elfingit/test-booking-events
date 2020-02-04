@@ -18,7 +18,8 @@ class PlaceResource extends JsonResource
             'id'            => $this->id,
             'price'         => $this->price,
             'position_x'    => $this->position_x,
-            'position_y'    => $this->position_y
+            'position_y'    => $this->position_y,
+            'reservation'   => ReservationResource::make($this->reserve)
         ];
     }
 }

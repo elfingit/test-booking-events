@@ -26,7 +26,7 @@ class CreatePlaceReservationsTable extends Migration
             $table->string('logo_file');
 
             $table->unsignedBigInteger('place_id')
-                  ->index();
+                  ->unique();
 
             $table->timestamps();
 

@@ -15,4 +15,9 @@ class Place extends Model
     {
         return $this->belongsTo(EventLocation::class, 'event_location_id', 'id');
     }
+
+    public function reserve()
+    {
+        return $this->hasOne(PlaceReservation::class, 'place_id', 'id');
+    }
 }
