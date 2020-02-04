@@ -20,8 +20,8 @@ class EventLocationResource extends JsonResource
             'description'   => $this->description,
             'lat'           => $this->latitude,
             'long'          => $this->longitude,
-            'started_at'    => $this->started_at->format('d:m:Y H:i'),
-            'end_at'        => $this->end_at->format('d:m:Y H:i')
+            'started_at'    => $this->started_at->format('d-m-Y H:i'),
+            'end_at'        => $this->end_at->format('d-m-Y H:i')
         ];
     }
 }
