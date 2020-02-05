@@ -1,5 +1,5 @@
-import { mount } from "@vue/test-utils";
-import App from "../components/App";
+import { mount } from "@vue/test-utils"
+import App from "../components/App"
 
 describe('App', () => {
     test('Is App a vue instance?', () => {

@@ -1,5 +1,5 @@
-import { mount } from "@vue/test-utils";
-import Loader from "../components/Loader";
+import { mount } from "@vue/test-utils"
+import Loader from "../components/Loader"
 
 describe('Loader', () => {
     test('Is Loader a vue instance?', () => {
