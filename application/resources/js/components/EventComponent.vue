@@ -24,9 +24,12 @@
 </template>
 
 <script>
-    import Loader from "./Loader";
-    import Place from "./Place";
-    import BookFormComponent from "./BookFormComponent";
+    import Loader from "./Loader"
+    import Place from "./Place"
+    import BookFormComponent from "./BookFormComponent"
+
+    import axios from "axios"
+
     export default {
         name: "EventComponent",
         components: {BookFormComponent, Place, Loader},
