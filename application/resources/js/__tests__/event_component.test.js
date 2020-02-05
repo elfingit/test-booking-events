@@ -3,7 +3,6 @@ import EventComponent from "../components/EventComponent"
 import axios from "axios"
 const MockAdapter = require("axios-mock-adapter")
 import flushPromises from 'flush-promises'
-//require('jsdom-global')()
 
 describe('EventComponent', () => {
 

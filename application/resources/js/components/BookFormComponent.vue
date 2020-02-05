@@ -102,6 +102,9 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: "BookFormComponent",
 
@@ -133,10 +136,14 @@
 
                 this.place = place
                 window.M.updateTextFields()
+
                 const mInst = window.M.Modal
                     .getInstance(this.$el)
-                mInst.options.dismissible = false
-                mInst.open()
+
+                if (mInst) {
+                    mInst.options.dismissible = false
+                    mInst.open()
+                }
             },
 
             handleFileUpload: function() {
@@ -166,13 +173,15 @@
                 .then( response  => {
                     this.cancelForm()
                     this.$emit('newReservation', response.data.data)
-                    window.M.Modal
+                    const mInst = window.M.Modal
                         .getInstance(this.$el)
-                        .close()
+                    if (mInst) {
+                        mInst.close()
+                    }
                 })
                 .catch( e => {
 
-                    if (e.request && e.request.status === 422) {
+                    if (e.response && e.response.status === 422) {
                         this.formErrors = e.response.data.errors
                     } else {
                         console.log(e)
@@ -194,8 +203,6 @@
                     phone: '',
                     description: ''
                 }
-
-                this.$refs.logoFile.reset()
 
                 this.formErrors = {}
             },
