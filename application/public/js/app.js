@@ -1929,6 +1929,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2032,6 +2034,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BookFormComponent",
   data: function data() {
@@ -2057,8 +2060,11 @@ __webpack_require__.r(__webpack_exports__);
       this.place = place;
       window.M.updateTextFields();
       var mInst = window.M.Modal.getInstance(this.$el);
-      mInst.options.dismissible = false;
-      mInst.open();
+
+      if (mInst) {
+        mInst.options.dismissible = false;
+        mInst.open();
+      }
     },
     handleFileUpload: function handleFileUpload() {
       this.logoFile = this.$refs.logoFile.files[0];
@@ -2078,7 +2084,7 @@ __webpack_require__.r(__webpack_exports__);
 
       formData.append('logo_file', this.logoFile);
       formData.append('place_id', this.place.id);
-      axios.post('/api/reserve_place', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/reserve_place', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -2087,9 +2093,13 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$emit('newReservation', response.data.data);
 
-        window.M.Modal.getInstance(_this.$el).close();
+        var mInst = window.M.Modal.getInstance(_this.$el);
+
+        if (mInst) {
+          mInst.close();
+        }
       })["catch"](function (e) {
-        if (e.request && e.request.status === 422) {
+        if (e.response && e.response.status === 422) {
           _this.formErrors = e.response.data.errors;
         } else {
           console.log(e);
@@ -2107,7 +2117,6 @@ __webpack_require__.r(__webpack_exports__);
         phone: '',
         description: ''
       };
-      this.$refs.logoFile.reset();
       this.formErrors = {};
     },
     getInputClass: function getInputClass(name) {
@@ -2133,6 +2142,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loader */ "./resources/js/components/Loader.vue");
 /* harmony import */ var _Place__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Place */ "./resources/js/components/Place.vue");
 /* harmony import */ var _BookFormComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BookFormComponent */ "./resources/js/components/BookFormComponent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2158,6 +2169,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2178,13 +2190,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/events/".concat(this.id)).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/events/".concat(this.id)).then(function (response) {
       _this.eventData = response.data.data;
     })["catch"](function (e) {
       console.log(e);
       alert('Something went wrong please try again later');
     });
-    axios.get("/api/events/".concat(this.id, "/place")).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/events/".concat(this.id, "/place")).then(function (response) {
       _this.places = response.data.data;
     })["catch"](function (e) {
       console.log(e);
